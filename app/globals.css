@@ -1,0 +1,23 @@
+@tailwind base;
+@tailwind components;
+@tailwind utilities;
+
+* {
+  margin: 0;
+  padding: 0;
+  box-sizing: border-box;
+}
+
+.gradient-text {
+  background: linear-gradient(
+    90deg,
+    rgba(6, 238, 153, 1) 0%,
+    rgba(83, 133, 247, 0.9977240896358543) 100%
+  );
+  /* -webkit-background-clip: text; */
+  /* -webkit-text-fill-color: transparent; */
+}
+
+.flexCenter {
+  @apply flex justify-center items-center;
+}
