@@ -2,7 +2,6 @@
 import {
   AppBar,
   Box,
-  Button,
   Divider,
   Drawer,
   IconButton,
@@ -18,12 +17,15 @@ import {
 import { Menu, Inbox, Mail, Close } from "@mui/icons-material";
 import { useState } from "react";
 import { theme } from "@/app/theme/theme";
+import Auth from "../auth";
+import { useRouter } from "next/navigation";
 
 const menuWidth = 240;
 
 const Navigation = () => {
   const [mobileOpen, setMobileOpen] = useState(false);
   const [isClosing, setIsClosing] = useState(false);
+  const router = useRouter();
 
   const handleMenuClose = () => {
     setIsClosing(true);
@@ -82,18 +84,17 @@ const Navigation = () => {
             >
               <Menu />
             </IconButton>
-            <Typography variant="h6" noWrap component="div">
+            <Typography
+              variant="h6"
+              noWrap
+              className="cursor-pointer"
+              onClick={() => router.push("/")}
+            >
               PhoneStore
             </Typography>
           </Toolbar>
           <Toolbar>
-            <Button
-              className="gradient-text normal-case font-bold"
-              variant="contained"
-              aria-label="sign in"
-            >
-              Sign in
-            </Button>
+            <Auth />
           </Toolbar>
         </AppBar>
         <Box

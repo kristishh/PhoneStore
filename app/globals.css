@@ -14,8 +14,6 @@
     rgba(6, 238, 153, 1) 0%,
     rgba(83, 133, 247, 0.9977240896358543) 100%
   );
-  /* -webkit-background-clip: text; */
-  /* -webkit-text-fill-color: transparent; */
 }
 
 .flexCenter {
