@@ -17,7 +17,7 @@ import {
 import { Menu, Inbox, Mail, Close } from "@mui/icons-material";
 import { useState } from "react";
 import { theme } from "@/app/theme/theme";
-import Auth from "../auth";
+import Profile from "./Profile";
 import { useRouter } from "next/navigation";
 
 const menuWidth = 240;
@@ -94,7 +94,7 @@ const Navigation = () => {
             </Typography>
           </Toolbar>
           <Toolbar>
-            <Auth />
+            <Profile />
           </Toolbar>
         </AppBar>
         <Box
