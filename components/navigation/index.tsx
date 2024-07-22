@@ -1,6 +1,5 @@
 "use client";
 import {
-  AppBar,
   Box,
   Divider,
   Drawer,
@@ -10,21 +9,22 @@ import {
   ListItemButton,
   ListItemIcon,
   ListItemText,
-  ThemeProvider,
+  Switch,
   Toolbar,
   Typography,
 } from "@mui/material";
 import { Menu, Inbox, Mail, Close } from "@mui/icons-material";
 import { useState } from "react";
-import { theme } from "@/app/theme/theme";
 import Profile from "./Profile";
 import { useRouter } from "next/navigation";
+import { useTheme } from "@/app/contexts/useTheme";
 
 const menuWidth = 240;
 
 const Navigation = () => {
   const [mobileOpen, setMobileOpen] = useState(false);
   const [isClosing, setIsClosing] = useState(false);
+  const { theme, toggleTheme } = useTheme();
   const router = useRouter();
 
   const handleMenuClose = () => {
@@ -45,6 +45,12 @@ const Navigation = () => {
   const MenuBar = () => (
     <div>
       <Toolbar className="justify-end">
+        <Switch
+          checked={theme === "dark"}
+          onChange={toggleTheme}
+          color="default"
+          inputProps={{ "aria-label": "theme switch" }}
+        />
         <IconButton
           color="inherit"
           aria-label="close menu"
@@ -71,70 +77,76 @@ const Navigation = () => {
   );
 
   return (
-    <ThemeProvider theme={theme}>
-      <Box>
-        <AppBar className="flex-row justify-between relative">
-          <Toolbar>
-            <IconButton
-              color="inherit"
-              aria-label="open menu"
-              edge="start"
-              onClick={handleMenuToggle}
-              sx={{ mr: 2 }}
-            >
-              <Menu />
-            </IconButton>
-            <Typography
-              variant="h6"
-              noWrap
-              className="cursor-pointer"
-              onClick={() => router.push("/")}
-            >
-              PhoneStore
-            </Typography>
-          </Toolbar>
-          <Toolbar>
-            <Profile />
-          </Toolbar>
-        </AppBar>
-        <Box
-          component="nav"
-          sx={{ width: { sm: menuWidth }, flexShrink: { sm: 0 } }}
-          aria-label="mailbox folders"
-        >
-          <Drawer
-            variant="temporary"
-            open={mobileOpen}
-            onTransitionEnd={handleMenuTransitionEnd}
-            onClose={handleMenuClose}
-            ModalProps={{
-              keepMounted: true,
-            }}
-            sx={{
-              display: { xs: "block", sm: "block" },
-              "& .MuiDrawer-paper": {
-                boxSizing: "border-box",
-                width: menuWidth,
-              },
-            }}
+    <Box>
+      <Box
+        className="shadow-shadowBlack"
+        sx={{
+          display: "flex",
+          flexDirection: "row",
+          justifyContent: "space-between",
+          position: "relative",
+        }}
+      >
+        <Toolbar>
+          <IconButton
+            color="inherit"
+            aria-label="open menu"
+            edge="start"
+            onClick={handleMenuToggle}
+            sx={{ mr: 2 }}
           >
-            <MenuBar />
-          </Drawer>
-          <Drawer
-            variant="permanent"
-            sx={{
-              display: { xs: "none", sm: "none" },
-              "& .MuiDrawer-paper": {
-                boxSizing: "border-box",
-              },
-            }}
-            open
+            <Menu />
+          </IconButton>
+          <Typography
+            variant="h6"
+            noWrap
+            className="cursor-pointer"
+            onClick={() => router.push("/")}
           >
-            <MenuBar />
-          </Drawer>
-        </Box>
+            PhoneStore
+          </Typography>
+        </Toolbar>
+        <Toolbar>
+          <Profile />
+        </Toolbar>
       </Box>
-    </ThemeProvider>
+      <Box
+        component="nav"
+        sx={{ width: { sm: menuWidth }, flexShrink: { sm: 0 } }}
+        aria-label="mailbox folders"
+      >
+        <Drawer
+          variant="temporary"
+          open={mobileOpen}
+          onTransitionEnd={handleMenuTransitionEnd}
+          onClose={handleMenuClose}
+          ModalProps={{
+            keepMounted: true,
+          }}
+          sx={{
+            display: { xs: "block", sm: "block" },
+            "& .MuiDrawer-paper": {
+              boxSizing: "border-box",
+              width: menuWidth,
+            },
+          }}
+        >
+          <MenuBar />
+        </Drawer>
+        <Drawer
+          variant="permanent"
+          sx={{
+            display: { xs: "none", sm: "none" },
+            "& .MuiDrawer-paper": {
+              boxSizing: "border-box",
+            },
+          }}
+          open
+        >
+          <MenuBar />
+        </Drawer>
+      </Box>
+    </Box>
   );
 };
 

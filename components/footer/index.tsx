@@ -1,10 +1,10 @@
 import { GitHub } from "@mui/icons-material";
-import { Divider } from "@mui/material";
+import { Box, Divider } from "@mui/material";
 import Link from "next/link";
 
 const Footer = () => {
   return (
-    <footer className="flexCenter bg-customBlack shadow-shadowBlack text-white p-2">
+    <Box className="flexCenter shadow-shadowBlack p-2">
       <p className="font-bold">All right reserved 2024</p>
       <Divider
         className="bg-white ml-2 mr-2 rounded-3xl border-3"
@@ -19,7 +19,7 @@ const Footer = () => {
       >
         kristishh
       </Link>
-    </footer>
+    </Box>
   );
 };
 

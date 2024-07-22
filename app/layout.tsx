@@ -1,8 +1,7 @@
 import Footer from "@/components/footer";
 import Navigation from "@/components/navigation/index";
-import { ClerkProvider } from "@clerk/nextjs";
-import { dark } from "@clerk/themes";
-import { montserrat } from "./theme/theme";
+import { ThemeProvider } from "./contexts/useTheme";
+import ClerkWrapper from "./providers/clerkWrapper";
 
 export const metadata = {
   title: "Next.js",
@@ -15,21 +14,16 @@ export default function RootLayout({
   children: React.ReactNode;
 }) {
   return (
-    <ClerkProvider
-      appearance={{
-        baseTheme: dark,
-        variables: { fontFamily: "__Montserrat_950f46" },
-      }}
-    >
-      <html lang="en">
-        <body className="flex flex-col min-h-screen">
-          <Navigation />
-          <main className="flex-1 flexCenter text-white bg-customBlack p-5">
-            {children}
-          </main>
-          <Footer />
-        </body>
-      </html>
-    </ClerkProvider>
+    <ThemeProvider>
+      <ClerkWrapper>
+        <html lang="en">
+          <body className="flex flex-col min-h-screen">
+            <Navigation />
+            <main className="flex-1 flexCenter p-5">{children}</main>
+            <Footer />
+          </body>
+        </html>
+      </ClerkWrapper>
+    </ThemeProvider>
   );
 }
